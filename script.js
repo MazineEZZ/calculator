@@ -8,7 +8,7 @@ let param = {
 
 inputBox.addEventListener("keydown", (event) => {
     // Stops certain characters from being entered
-    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    const allowedKeys = ['Backspace',  'Tab'];
     if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
         event.preventDefault(); 
     }
@@ -28,23 +28,37 @@ inputBox.addEventListener("keydown", (event) => {
     } else if (["+", "-", "*", "/"].includes(event.key)) {
         if (param.total === "") {
             param.total = param.curr;
-            param.curr = "0";
         } else {
-            getCalc(event.key);
+            getCalc(param.lastOper);
         }
         param.lastOper = event.key;
+        param.curr = "";
         inputBox.value = "";
         event.preventDefault();
         param.isNewCalc = false;
     } else if (event.key === "Enter") {
-        inputBox.value = Math.floor(getCalc(param.lastOper) * 1000) / 1000;
+        let result = getCalc(param.lastOper);
+        if (result !== "ERROR") {
+            inputBox.value = Math.floor(result * 1000) / 1000;
+        } else {
+            inputBox.value = result;
+            param.curr = "";
+            param.total = "";
+            param.lastOper = "";
+        }
         event.preventDefault();
         param.isNewCalc = true;
+    } else if (event.key === "Backspace") {
+        deleteOneValue();
     }
 })
 
 function changeValues(digit) {
     param.curr += digit;
+}
+
+function deleteOneValue() {
+    param.curr = param.curr.slice(0, -1);
 }
 
 function getCalc(oper) {

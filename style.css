@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    height: 450px; /* Now you can set this to whatever you want */
+    border: 2px solid black;
+
+}
+
+#input-box {
+    flex: 1;
+    font-size: 40px;
+}
+
+.row {
+    display: flex;
+    flex: 1;
+}
+
+.row > button {
+    flex: 1;
+}
