@@ -9,8 +9,9 @@ let param = {
 // DOM Selection
 const numbersBtn = document.querySelectorAll(".number");
 const opersBtn = document.querySelectorAll(".oper");
+const pointBtn = document.querySelector(".point");
 
-const keyList = [...numbersBtn, ...opersBtn]
+const keyList = [...numbersBtn, ...opersBtn, pointBtn];
 
 keyList.forEach((key) => {
     key.addEventListener("click", (e) => {
@@ -70,6 +71,9 @@ function operateValue(key, e=null) {
     } else if (key === "Backspace") {
         param.curr = param.curr.slice(0, -1);
         inputBox.value = param.curr || "0";
+    } else if (key === "." && !param.curr.includes(".")) {
+        param.curr = param.curr + ".";
+        inputBox.value = param.curr;
     }
 }
 
